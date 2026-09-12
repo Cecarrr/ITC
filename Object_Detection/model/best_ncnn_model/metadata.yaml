@@ -1,0 +1,31 @@
+description: Ultralytics YOLO26n model trained on /content/SP2-1/data.yaml
+author: Ultralytics
+date: '2026-09-12T10:04:20.084874+00:00'
+version: 8.4.149
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 32
+task: detect
+head: Detect
+batch: 1
+imgsz:
+- 768
+- 768
+names:
+  0: black-bishop
+  1: black-king
+  2: black-knight
+  3: black-pawn
+  4: black-queen
+  5: black-rook
+  6: white-bishop
+  7: white-king
+  8: white-knight
+  9: white-pawn
+  10: white-queen
+  11: white-rook
+args:
+  batch: 1
+  quantize: null
+channels: 3
+end2end: false

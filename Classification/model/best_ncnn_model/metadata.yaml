@@ -1,0 +1,25 @@
+description: Ultralytics YOLO26n-cls model trained on /content/Waste-Classifier-backup-1
+author: Ultralytics
+date: '2026-09-13T09:22:01.158979+00:00'
+version: 8.4.150
+license: AGPL-3.0 License (https://ultralytics.com/license)
+docs: https://docs.ultralytics.com
+stride: 1
+task: classify
+head: Classify
+batch: 1
+imgsz:
+- 320
+- 320
+names:
+  0: biodegradable
+  1: cardboard
+  2: glass
+  3: metal
+  4: paper
+  5: plastic
+args:
+  batch: 1
+  quantize: null
+channels: 3
+end2end: false

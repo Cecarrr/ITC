@@ -1,14 +1,13 @@
 # Desk Posture Monitor (Keypoint Detection)
 
-Real-time desk posture checker built on MediaPipe Pose Landmarker keypoints
-— flags sustained slouching and lateral lean from a normal chest-up
-laptop/desk webcam feed (not a full-body external camera).
+Real-time desk posture checker built on MediaPipe Pose Landmarker keypoints it flags sustained slouching and lateral lean from a normal chest-up, this will need laptop/desk webcam feed (not a full-body external camera).
 
 ## Context
 Built as part of ITC's AI & Machine Learning division work.
 
 ## Dataset
-N/A. This project doesn't train a model — it runs entirely on MediaPipe's
+N/A. 
+<br> This project doesn't train a model, it runs entirely on MediaPipe's
 pretrained Pose Landmarker (`pose_landmarker_lite`, auto-downloaded from
 Google's hosted model storage at first run) and builds rule-based logic on
 top of the 33 keypoints it returns per frame. No custom dataset was
@@ -16,19 +15,19 @@ collected or needed.
 
 ## Approach
 - **Model**: MediaPipe Pose Landmarker (lite variant), running in `VIDEO`
-  mode over live webcam frames — 33 body keypoints per frame, each with an
+  mode over live webcam frames with 33 body keypoints per frame, each with an
   (x, y) position and a visibility confidence score
 - **Two independent heuristic signals** derived from keypoints:
   - *Neck angle*: angle between the shoulder-midpoint and ear-midpoint vs.
-    vertical — picks up the head tilting forward
+    vertical who picks up the head tilting forward
   - *Nose-shoulder ratio*: vertical gap between the nose and shoulder
-    midpoint, normalized by shoulder width — picks up the head dropping
+    midpoint, normalized by shoulder width who picks up the head dropping
     toward the shoulder line, independent of the angle signal
 - **Three-zone system** (Frontal / Turning / Profile), based on live
-  shoulder width vs. a calibrated baseline, with hysteresis on the zone
+  shoulder width vs a calibrated baseline with hysteresis on the zone
   boundaries to avoid flicker. Turning your head/body shrinks apparent
   shoulder width through foreshortening well before you're in full profile,
-  which breaks the nose-ratio's width normalization — so each zone only
+  which breaks the nose-ratio's width normalization so each zone only
   trusts the signals that are actually still reliable in it (see table in
   Results)
 - **Fail-safe combination logic**: flags slouching if either signal alone
@@ -50,12 +49,12 @@ pip install -r requirements.txt
 python posture_monitor.py
 ```
 Face the camera, sit up straight, press `c` to calibrate, then work
-normally — sustained deviation triggers an on-screen slouch warning.
+normally until sustained deviation triggers an on-screen slouch warning.
 Press `q` to quit. This needs live webcam access, so it's meant to run
-locally, not in a notebook environment.
+locally and not in a notebook environment.
 
 ## Results
-No held-out test set or precision/recall metrics — this isn't a trained
+No held-out test set or precision/recall metrics since this isn't a trained
 classifier, it's a real-time rule-based system tuned through iterative live
 testing on one subject. Testing outcomes at current thresholds:
 
@@ -69,15 +68,15 @@ testing on one subject. Testing outcomes at current thresholds:
 | Fully facing away from camera | Correctly reports "no reliable signal" rather than guessing |
 
 ## Limitations
-- **Can't distinguish desk-slouch from deliberately looking down** — a
+- **Can't distinguish desk-slouch from deliberately looking down** - a
   sustained downward head tilt looks geometrically identical whether it's
   bad desk posture or checking a phone/something on the floor. This is a
   limitation of using pose geometry alone, not a bug.
-- **No signal when fully facing away from the camera** — with no face
+- **No signal when fully facing away from the camera** - with no face
   keypoints visible, the system reports "no reliable signal" rather than
   attempting a guess. Expected behavior, not a failure case.
 - **Thresholds are tuned for one tester's setup** (camera distance, own
-  posture habits) — a different user/camera should recalibrate and may
+  posture habits) - a different user/camera should recalibrate and may
   need to adjust the constants at the top of `posture_monitor.py`. Setting
   thresholds unusually loose is a configuration choice on the user's end,
   not a code issue.
@@ -86,5 +85,6 @@ testing on one subject. Testing outcomes at current thresholds:
   usage patterns rather than a systematic evaluation.
 
 ## Exported formats
-N/A. Nothing is trained or exported in this project — it runs directly
+N/A. 
+<br> Nothing is trained or exported in this project since it runs directly
 against MediaPipe's stock pose landmarker model at inference time.

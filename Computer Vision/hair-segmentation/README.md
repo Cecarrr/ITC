@@ -11,7 +11,7 @@ members compared results on the same data rather than each sourcing their own.
 [Hair segmentation dataset — Roboflow Universe](https://universe.roboflow.com/caesar-ylvsf/hair-2pjwo-ng8p4)
 - ~1,894 training images
 - ~796 validation images (after excluding a small number of corrupt/malformed label files that Ultralytics flagged automatically)
-- 479 images
+- 479 test images
 
 ## Approach
 - **Model**: YOLO26n-seg (Ultralytics), input size 640×640
